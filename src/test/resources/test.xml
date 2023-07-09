@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="DemoQa test">
+    <test thread-count="5" name="ElementsPage test">
+        <classes>
+            <class name="com.demoqa.tests.ElementsPageTest"/>
+            <class name="com.demoqa.tests.WebtablesPageTest"/>
+        </classes>
+    </test>
+</suite>
