@@ -10,7 +10,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WebtablesPageMethods extends AbstractPageObject {
+public class WebtablesPageMethods extends WebtablesPageObject {
 
     WebtablesPageObject webtablesPage = new WebtablesPageObject(driver);
     SoftAssert softAssert = new SoftAssert();
@@ -19,14 +19,14 @@ public class WebtablesPageMethods extends AbstractPageObject {
         super(driver);
     }
 
-    /*public void openWebtablesUrl() {
+    public WebtablesPageMethods openWebtablesUrl() {
         System.out.println("Opening page: " + webtablesPage.getWebtablesUrl());
         openUrl(webtablesPage.getWebtablesUrl());
         System.out.println("Page opened!");
-    }*/
+        return this;
+    }
 
-
-    public void validateListUpdate() {
+    public WebtablesPageMethods validateListUpdate() {
 
         for (int i = 0; i < webtablesPage.getListElements().size(); i++) {
             System.out.println(webtablesPage.getListElements().size());
@@ -34,8 +34,28 @@ public class WebtablesPageMethods extends AbstractPageObject {
 
             softAssert.assertTrue(webtablesPage.getListElements().get(i).getText().contains(webtablesPage.getEmailValue()));
 
-            return;
+            break;
         }
+        return this;
+    }
+
+    public WebtablesPageMethods editAgeField() {
+        webtablesPage.getEditButton().getAge().clear();
+        webtablesPage.getAge().sendKeys(webtablesPage.getEditAgeValue());
+        webtablesPage.getSubmitButton();
+
+        return this;
+    }
+
+    public WebtablesPageMethods enterUserData() {
+        webtablesPage.getAddButton().getFirstName().sendKeys(webtablesPage.getFistNameValue());
+        webtablesPage.getLastName().sendKeys(webtablesPage.getLastNameValue());
+        webtablesPage.getUserEmail().sendKeys(webtablesPage.getEmailValue());
+        webtablesPage.getAge().sendKeys("23");
+        webtablesPage.getSalary().sendKeys("11235");
+        webtablesPage.getDepartment().sendKeys("QA");
+        webtablesPage.getSubmitButton();
+        return this;
     }
 }
 

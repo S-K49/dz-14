@@ -2,11 +2,9 @@ package com.demoqa.pagemethods;
 
 import com.demoqa.pageobjects.AbstractPageObject;
 import com.demoqa.pageobjects.ElementsPageObject;
-import com.demoqa.pageobjects.WebtablesPageObject;
 import org.openqa.selenium.WebDriver;
-import org.testng.asserts.SoftAssert;
 
-public class ElementsPageMethods extends AbstractPageObject {
+public class ElementsPageMethods extends ElementsPageObject {
 
     ElementsPageObject elementsPage = new ElementsPageObject(driver);
 
@@ -14,10 +12,10 @@ public class ElementsPageMethods extends AbstractPageObject {
         super(driver);
     }
 
-    /*public void openElementsUrl() {
+    public ElementsPageMethods openElementsPageUrl() {
         System.out.println("Opening page: " + elementsPage.getUrl());
-        driver.get(elementsPage.getUrl());
+        openUrl(elementsPage.getUrl());
         System.out.println("Page opened!");
-    }*/
-
+        return this;
+    }
 }

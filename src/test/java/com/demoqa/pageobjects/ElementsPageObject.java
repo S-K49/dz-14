@@ -13,26 +13,32 @@ public class ElementsPageObject extends AbstractPageObject {
 
     private By dynamicClickMessage = (By.id("dynamicClickMessage"));
 
+    private static final String CLICK_ME_MESSAGE = "You have done a dynamic click";
+
     public ElementsPageObject(WebDriver driver) {
         super(driver);
-        System.out.println("Opening page: " + getUrl());
-        driver.get(getUrl());
-        System.out.println("Page opened!");
     }
 
-    public WebElement getButtonMenuItem() {
-        return getElement(buttonsMenuItem);
+    public ElementsPageObject getButtonMenuItem() {
+        scrollToElement(driver.findElement(By.id("item-4")));
+        getElement(By.id("item-4")).click();
+        return this;
     }
 
-    public WebElement getClickMeButton() {
-        return getElement(clickMeButton);
+    public ElementsPageObject getClickMeButton() {
+        getElement(By.xpath("//div/button[(text()='Click Me')]")).click();
+        return this;
     }
 
-    public WebElement getDynamicClickMessage() {
-        return getElement(dynamicClickMessage);
+    public String getDynamicClickMessage() {
+        return getElement(By.id("dynamicClickMessage")).getText();
     }
 
     public String getUrl() {
         return elementsPageUrl;
+    }
+
+    public String getMessage() {
+        return CLICK_ME_MESSAGE;
     }
 }

@@ -1,6 +1,8 @@
 package com.demoqa.tests;
 
+import com.demoqa.pagemethods.ElementsPageMethods;
 import com.demoqa.pageobjects.ElementsPageObject;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -12,11 +14,16 @@ public class ElementsPageTest extends BaseTest {
 
         ElementsPageObject elementsPage = new ElementsPageObject(driver);
 
-        elementsPage.getButtonMenuItem().click();
-        elementsPage.getClickMeButton().click();
-        System.out.println(elementsPage.getDynamicClickMessage().getText());
+        new ElementsPageMethods(driver).openElementsPageUrl();
 
-        Assert.assertTrue(elementsPage.getDynamicClickMessage().isDisplayed(), "Element is not displayed, check button click of " + elementsPage.getClickMeButton().getText());
+        String actualMessage = elementsPage
+                .getButtonMenuItem()
+                .getClickMeButton()
+                .getDynamicClickMessage();
+
+        System.out.println(elementsPage.getDynamicClickMessage());
+
+        Assert.assertEquals(actualMessage, elementsPage.getMessage(), "Element is not displayed, check button click of " + elementsPage.getClickMeButton());
 
     }
 }

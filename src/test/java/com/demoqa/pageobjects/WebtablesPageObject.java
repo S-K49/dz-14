@@ -16,6 +16,8 @@ public class WebtablesPageObject extends AbstractPageObject{
 
     private final static String EMAIL = "lucy.black.123@test.com.ua";
 
+    private final static String EDIT_AGE_VALUE = "0";
+
     private By addButton = (By.id("addNewRecordButton"));
 
     private By firstName = (By.id("firstName"));
@@ -32,26 +34,20 @@ public class WebtablesPageObject extends AbstractPageObject{
 
     private By submitButton = (By.id("submit"));
 
-    private By listElement = (By.xpath("//div[@id='app']/div[@class='body-height']//div[@role='grid']/div[@class='rt-tbody']/div/div[@role='row']/div[4]"));
-
-    private By editButton = (By.id("edit-record-4"));
-
-    private By ageTableValue = (By.xpath("//div/div[4][contains(text(), 'lucy.black')]/preceding-sibling::div[1]"));
+    private By listElement = (By.xpath("//div[@role='rowgroup']"));
 
     private By modalWindow = (By.className(".modal-content"));
     public WebtablesPageObject(WebDriver driver) {
         super(driver);
-        System.out.println("Opening page: " + getWebtablesUrl());
-        driver.get(getWebtablesUrl());
-        System.out.println("Page opened!");
     }
 
     public String getWebtablesUrl() {
         return webtablesPageUrl;
     }
 
-    public WebElement getAddButton() {
-        return getElement(addButton);
+    public WebtablesPageObject getAddButton() {
+        getElement(By.id("addNewRecordButton")).click();
+        return this;
     }
 
     public WebElement getFirstName() {
@@ -78,16 +74,18 @@ public class WebtablesPageObject extends AbstractPageObject{
         return getElement(department);
     }
 
-    public WebElement getSubmitButton() {
-        return getElement(submitButton);
+    public WebtablesPageObject getSubmitButton() {
+        getElement(By.id("submit")).click();
+        return this;
     }
 
     public List<WebElement> getListElements() {
         return getElements(listElement);
     }
 
-    public WebElement getEditButton() {
-        return getElement(editButton);
+    public WebtablesPageObject getEditButton() {
+        getElement(By.id("edit-record-4")).click();
+        return this;
     }
 
     public String getFistNameValue() {
@@ -102,11 +100,15 @@ public class WebtablesPageObject extends AbstractPageObject{
         return EMAIL;
     }
 
-    public WebElement getAgeTableValue() {
-        return getElement(ageTableValue);
+    public WebElement getAgeTableValue(){
+        return getElement(By.xpath("//div[contains(text(),'"+getEmailValue()+"')]/preceding-sibling::div[1]"));
     }
 
     public WebElement getModalWindow() {
         return getElement(modalWindow);
+    }
+
+    public String getEditAgeValue() {
+        return EDIT_AGE_VALUE;
     }
 }
