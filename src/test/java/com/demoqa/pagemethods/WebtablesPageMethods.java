@@ -1,38 +1,50 @@
 package com.demoqa.pagemethods;
 
-import com.demoqa.pageobjects.AbstractPageObject;
-import com.demoqa.pageobjects.WebtablesPageObject;
+import com.demoqa.pageelements.WebtablesPageElements;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
-import java.util.ArrayList;
-import java.util.List;
+public class WebtablesPageMethods extends WebtablesPageElements {
 
-public class WebtablesPageMethods extends WebtablesPageObject {
+    private String webtablesPageUrl = "https://demoqa.com/webtables";
 
-    WebtablesPageObject webtablesPage = new WebtablesPageObject(driver);
+    private final static String FIRST_NAME = "Lucy";
+
+    private final static String LAST_NAME = "Black";
+
+    private final static String EDIT_AGE_VALUE = "0";
+
+    protected final static String EMAIL = "lucy.black.123@test.com.ua";
     SoftAssert softAssert = new SoftAssert();
 
     public WebtablesPageMethods(WebDriver driver) {
         super(driver);
     }
 
+    public String getWebtablesUrl() {
+        return webtablesPageUrl;
+    }
+
     public WebtablesPageMethods openWebtablesUrl() {
-        System.out.println("Opening page: " + webtablesPage.getWebtablesUrl());
-        openUrl(webtablesPage.getWebtablesUrl());
+        System.out.println("Opening page: " + getWebtablesUrl());
+        openUrl(getWebtablesUrl());
         System.out.println("Page opened!");
+        return this;
+    }
+
+    public WebtablesPageMethods clickAddButton() {
+        getAddButton().click();
         return this;
     }
 
     public WebtablesPageMethods validateListUpdate() {
 
-        for (int i = 0; i < webtablesPage.getListElements().size(); i++) {
-            System.out.println(webtablesPage.getListElements().size());
-            WebElement newRecord = webtablesPage.getListElements().get(i);
+        for (int i = 0; i < getListElements().size(); i++) {
+            System.out.println(getListElements().size());
+            WebElement newRecord = getListElements().get(i);
 
-            softAssert.assertTrue(webtablesPage.getListElements().get(i).getText().contains(webtablesPage.getEmailValue()));
+            softAssert.assertTrue(getListElements().get(i).getText().contains(EMAIL));
 
             break;
         }
@@ -40,21 +52,25 @@ public class WebtablesPageMethods extends WebtablesPageObject {
     }
 
     public WebtablesPageMethods editAgeField() {
-        webtablesPage.getEditButton().getAge().clear();
-        webtablesPage.getAge().sendKeys(webtablesPage.getEditAgeValue());
-        webtablesPage.getSubmitButton();
+        getEditButton().click();
+        getAge().clear();
+        getAge().sendKeys(EDIT_AGE_VALUE);
+        getSubmitButton();
+
+        softAssert.assertEquals(getAgeTableValue(EMAIL).getText(), EDIT_AGE_VALUE, "The value " + getAge() + " is not updated to " + EDIT_AGE_VALUE + ". Actual value is" + getAgeTableValue(EMAIL).getText());
 
         return this;
     }
 
-    public WebtablesPageMethods enterUserData() {
-        webtablesPage.getAddButton().getFirstName().sendKeys(webtablesPage.getFistNameValue());
-        webtablesPage.getLastName().sendKeys(webtablesPage.getLastNameValue());
-        webtablesPage.getUserEmail().sendKeys(webtablesPage.getEmailValue());
-        webtablesPage.getAge().sendKeys("23");
-        webtablesPage.getSalary().sendKeys("11235");
-        webtablesPage.getDepartment().sendKeys("QA");
-        webtablesPage.getSubmitButton();
+    public WebtablesPageMethods addUser() {
+        getFirstName().sendKeys(FIRST_NAME);
+        getLastName().sendKeys(LAST_NAME);
+        getUserEmail().sendKeys(EMAIL);
+        getAge().sendKeys("23");
+        getSalary().sendKeys("11235");
+        getDepartment().sendKeys("QA");
+        getSubmitButton().click();
+
         return this;
     }
 }

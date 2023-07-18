@@ -1,21 +1,37 @@
 package com.demoqa.pagemethods;
 
-import com.demoqa.pageobjects.AbstractPageObject;
-import com.demoqa.pageobjects.ElementsPageObject;
+import com.demoqa.pageelements.ElementsPageElements;
 import org.openqa.selenium.WebDriver;
 
-public class ElementsPageMethods extends ElementsPageObject {
+public class ElementsPageMethods extends ElementsPageElements {
 
-    ElementsPageObject elementsPage = new ElementsPageObject(driver);
+    private String elementsPageUrl = "https://demoqa.com/elements";
 
     public ElementsPageMethods(WebDriver driver) {
         super(driver);
     }
 
     public ElementsPageMethods openElementsPageUrl() {
-        System.out.println("Opening page: " + elementsPage.getUrl());
-        openUrl(elementsPage.getUrl());
+        System.out.println("Opening page: " + getUrl());
+        openUrl(getUrl());
         System.out.println("Page opened!");
         return this;
+    }
+
+    public ElementsPageMethods clickButtonMenuItem() {
+        getButtonMenuItem().click();
+        return this;
+    }
+
+    public ElementsPageMethods pressClickMeButton() {
+        getClickMeButton().click();
+        return this;
+    }
+
+    public String getUrl() {
+        return elementsPageUrl;
+    }
+    public String getDynamicClickMessageText() {
+        return getDynamicClickMessage().getText();
     }
 }

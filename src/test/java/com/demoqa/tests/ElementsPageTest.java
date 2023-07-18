@@ -1,29 +1,26 @@
 package com.demoqa.tests;
 
 import com.demoqa.pagemethods.ElementsPageMethods;
-import com.demoqa.pageobjects.ElementsPageObject;
-import org.openqa.selenium.WebElement;
+import com.demoqa.pageelements.ElementsPageElements;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ElementsPageTest extends BaseTest {
+    private static final String CLICK_ME_MESSAGE = "You have done a dynamic click";
 
     @Test
 
     public void elementsPageTest() {
 
-        ElementsPageObject elementsPage = new ElementsPageObject(driver);
+        String actualMessage = new ElementsPageMethods(driver)
+                .openElementsPageUrl()
+                .clickButtonMenuItem()
+                .pressClickMeButton()
+                .getDynamicClickMessageText();
 
-        new ElementsPageMethods(driver).openElementsPageUrl();
+        System.out.println(new ElementsPageMethods(driver).getDynamicClickMessageText());
 
-        String actualMessage = elementsPage
-                .getButtonMenuItem()
-                .getClickMeButton()
-                .getDynamicClickMessage();
-
-        System.out.println(elementsPage.getDynamicClickMessage());
-
-        Assert.assertEquals(actualMessage, elementsPage.getMessage(), "Element is not displayed, check button click of " + elementsPage.getClickMeButton());
+        Assert.assertEquals(actualMessage, CLICK_ME_MESSAGE, "Element is not displayed, check button click of " + new ElementsPageMethods(driver).pressClickMeButton());
 
     }
 }
